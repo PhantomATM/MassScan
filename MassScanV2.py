@@ -4,11 +4,11 @@ from time import sleep
 from subprocess import call
 
 ans=True
- 
+
 def yes_no(answer):
     yes = set(['yes','y', 'ye', ''])
     no = set(['no','n'])
-     
+
     while True:
         choice = raw_input(answer).lower()
         if choice in yes:
@@ -19,11 +19,11 @@ def yes_no(answer):
            sys.exit("Rerun the Code")
         else:
            print "Please respond with 'yes' or 'no'\n"
-		   
+
 def scan():
     sleep(0.5)
     print("5")
-    sleep(1)   
+    sleep(1)
     print("4")
     sleep(1)
     print("3")
@@ -31,13 +31,15 @@ def scan():
     print("2")
     sleep(1)
     print("1")
-    os.system("screen -S ScanGlobal-1 zmap -p22 -o mfu.txt -B100M")
+    os.system("rm -r mfu*")
+    call(["clear"])
+    os.system("screen -S ScanGlobal-1 zmap -p22 -o mfu.txt -N 250000")
     call(["clear"])
     os.system("screen -S Update1 ./update 1500")
     call(["clear"])
-    os.system("screen -S Slump1 perl kaden.pl vuln.txt")
+    os.system("screen -S Slump1 perl slump.pl vuln.txt")
     call(["clear"])
-
+    
 while ans:
     print("""
     1. Scan 1 lst
@@ -51,11 +53,13 @@ while ans:
 	  call(["clear"])
 	  os.system("ls *.lst")
 	  lista1 = raw_input('nome lista 1: ')
+	  os.system("rm -r mfu*")
+	  call(["clear"])
 	  os.system("screen -S Scan1 zmap -p22 -w {0}.lst  -o mfu.txt -B100M".format(lista1))
 	  call(["clear"])
 	  os.system("screen -S Update1 ./update 1500")
 	  call(["clear"])
-	  os.system("screen -S Slump1 perl kaden.pl vuln.txt")
+	  os.system("screen -S Slump1 perl slump.pl vuln.txt")
 	  call(["clear"])
     elif ans=="2":
 	  #input
@@ -63,6 +67,8 @@ while ans:
 	  lista1 = raw_input('nome lista 1: ')
 	  os.system("ls *.lst")
 	  lista2 = raw_input('nome lista 2: ')
+	  os.system("rm -r mfu*")
+	  call(["clear"])
 	  #lista 1
 	  call(["clear"])
 	  print "Scanning Lista 1"
@@ -82,7 +88,7 @@ while ans:
 	  os.system("screen -S Update1 ./update 1500")
 	  call(["clear"])
 	  #Slump 1
-	  os.system("screen -S Slump1 perl kaden.pl vuln.txt")
+	  os.system("screen -S Slump1 perl slump.pl vuln.txt")
 	  call(["clear"])
     elif ans=="3":
 	  #input
@@ -92,6 +98,8 @@ while ans:
 	  lista2 = raw_input('nome lista 2: ')
 	  os.system("ls *.lst")
 	  lista3 = raw_input('nome lista 3: ')
+	  os.system("rm -r mfu*")
+	  call(["clear"])
 	  #lista 1
 	  call(["clear"])
 	  print "Scanning Lista 1"
@@ -118,13 +126,13 @@ while ans:
 	  os.system("screen -S Update1 ./update 1500")
 	  call(["clear"])
 	  #Slump 1
-	  os.system("screen -S Slump1 perl kaden.pl vuln.txt")
+	  os.system("screen -S Slump1 perl slump.pl vuln.txt")
 	  call(["clear"])
     elif ans=="4":
       print("Scanning Global is hazardous")
       yes_no('Scan? [y] or [n]: ')
     elif ans=="5":
-      print("\n Goodbye") 
+      print("\n Goodbye")
       ans = None
     else:
        print("\n Scelta non valida")
